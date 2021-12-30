@@ -90,6 +90,8 @@ export default class Level extends Phaser.Scene {
   create() {
     //this.cameras.main.setBounds(0, 0, 200, 500);
     let { width, height } = this.sys.game.canvas;
+
+    //Establecemos el tamaño de la camara
     this.cameras.main.setViewport(300, 0, width/2, height);
     this.stars = 10;
     this.bases = this.add.group();
