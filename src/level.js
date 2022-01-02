@@ -31,12 +31,47 @@ export default class Level extends Phaser.Scene {
       setXY: { x: 100, y: 150, stepX: 120}
       });
       //añadimos el collider al grupo
-      this.physics.add.collider(this.player, this.balls);  
+      this.physics.add.collider(this.player, this.balls, this.collisionCallback);  
 
       //recorremos el grupo y ponemos posiciones aleatorias
-      this.balls.children.iterate( child => 
-            child.setPosition(Phaser.Math.RND.between(0,width), Phaser.Math.RND.between(0,height/2)))    
+      this.balls.children.iterate( child => {
+            child.setName('gota');
+            child.setPosition(Phaser.Math.RND.between(0,width), Phaser.Math.RND.between(0,height/2))})    
                     
+  }
+
+  collisionCallback(obj1, obj2) 
+  {
+    let gr= obj1.scene.balls;
+    if (gr.contains(obj1))
+    {
+      gr.remove(obj1, true, true); 
+    }
+    else if (gr.contains(obj2))
+    {
+        gr.remove(obj2, true, true); 
+    }
+
+
+    /*
+    if (obj1.name == 'gota')
+    {
+      this.balls.remove(obj1, true, true);
+    }
+    else  if (obj2.name == 'gota')
+    {
+      obj2.scene.balls.remove(obj2, true, true);
+    }
+
+    if (obj1.name == 'player')
+    {
+      obj1.destroy();
+    }
+    else  if (obj2.name == 'player')
+    {
+      obj2.destroy();
+    }
+*/
   }
 
   //Crea objetos dinamicos con el metodo add.group
